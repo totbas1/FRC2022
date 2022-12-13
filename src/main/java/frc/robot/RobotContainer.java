@@ -48,26 +48,26 @@ public class RobotContainer {
   private final Elevator m_Elevator = new Elevator();
   private final RobotDrive m_RobotDrive = new RobotDrive();
   private final Shooting m_Shooting = new Shooting();
-  private final ShootingRotate m_ShootingRotate = new ShootingRotate();
+  private final PIDshootingRotate m_PIDshootingRotate = new PIDshootingRotate();
   
   //INSTANTIATES ALL COMMANDS
   private final ExampleCommand m_exampleCommand = new ExampleCommand(m_exampleSubsystem);
-  private final AutoCommand m_AutoCommand = new AutoCommand(m_RobotDrive, m_BallIntake, m_Shooting, m_ShootingRotate, m_Elevator, .5);
+  private final AutoCommand m_AutoCommand = new AutoCommand(m_RobotDrive, m_BallIntake, m_Shooting, m_PIDshootingRotate, m_Elevator, .5);
   private final BallIntakeCommand m_BallIntakeCommand = new BallIntakeCommand(m_BallIntake);
   private final BallShootTopCommand m_BallShootTopCommand = new BallShootTopCommand(m_Shooting);
   private final ClimbingUpCommand m_ClimbingUpCommand = new ClimbingUpCommand(m_Climbing);
   private final ClimbingDownCommand m_ClimbingDownCommand = new ClimbingDownCommand(m_Climbing);
   private final DriveCommand m_DriveCommand = new DriveCommand(m_RobotDrive);
   private final ElevatorMoveBottomCommand m_ElevatorMoveBottomCommand = new ElevatorMoveBottomCommand(m_Elevator);
-  private final ShootingRotateCommand m_ShootingRotateCommand = new ShootingRotateCommand(m_ShootingRotate);
   private final ElevatorMoveTopCommand m_ElevatorMoveTopCommand = new ElevatorMoveTopCommand(m_Elevator);
   private final BallOutCommand m_BallOutCommand = new BallOutCommand(m_Elevator);
+  private final LimeLightAutoAdjustCommand m_LimeLightAutoAdjustCommand = new LimeLightAutoAdjustCommand(m_PIDshootingRotate);
   private static boolean adjustRotateOn = true;
 
   public static double startingAngle = 0.0;
   public static Encoder leftEncoder = new Encoder(0,1);
   public static Encoder rightEncoder = new Encoder(2, 3);
-  public static Encoder limelightRotateEncoder = new Encoder(4, 5);
+  //public static Encoder limelightRotateEncoder = new Encoder(4, 5);
 
   private static AHRS m_gyro = new AHRS(SPI.Port.kMXP); //HC - 01/13/22
   private static PIDController turnController = new PIDController(AutoConstants.kP, AutoConstants.kI, AutoConstants.kD);
@@ -178,8 +178,8 @@ public class RobotContainer {
     new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_ClimbingDownCommand);
     new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value).whileHeld(m_BallShootTopCommand); //og : m_BallIntakeCommand
     new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ElevatorMoveTopCommand);
-    new JoystickButton(m_driverController, XboxController.Button.kX.value).whileHeld(m_ShootingRotateCommand);
     new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_BallOutCommand);
+    new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_LimeLightAutoAdjustCommand);
   }
 
 

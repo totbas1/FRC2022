@@ -62,12 +62,12 @@ public class RobotDrive extends SubsystemBase {
     leftDrive = leftDrive*maxSpeed;
     rightDrive = rightDrive*maxSpeed;
 
-    if(!ShootingRotateCommand.rotateStatus){
+    //if(!PIDshootingRotate.rotateStatus)
     m_left.set(leftDrive);
     m_right.set(-rightDrive);
     //ShootingRotate.adjustX();
     //ShootingRotate.adjustHood();
-    }
+    
 
     //TEST THIS LATER
     // while(Math.abs(m_left.get()-leftDrive) < 0.1){

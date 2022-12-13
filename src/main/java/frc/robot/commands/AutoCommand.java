@@ -9,7 +9,7 @@ import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.RobotDrive;
 import frc.robot.subsystems.Shooting;
-import frc.robot.subsystems.ShootingRotate;
+import frc.robot.subsystems.PIDshootingRotate;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 import com.revrobotics.RelativeEncoder;
@@ -24,7 +24,7 @@ public class AutoCommand extends CommandBase {
   private final RobotDrive drive_subsystem;
   private final BallIntake intake_subsystem;
   private final Shooting shooting_subsystem;
-  private final ShootingRotate rotator_subsystem;
+  private final PIDshootingRotate rotator_subsystem;
   private final Elevator elevator_subsystem; // flagged as unused by VSCode -PB
   private double m_speed;
   private Timer t;
@@ -41,7 +41,7 @@ public class AutoCommand extends CommandBase {
  * @param angle
  * 
  */
-  public AutoCommand(RobotDrive d_sub, BallIntake i_sub, Shooting s_sub, ShootingRotate r_sub, Elevator e_sub, double speed) {
+  public AutoCommand(RobotDrive d_sub, BallIntake i_sub, Shooting s_sub, PIDshootingRotate r_sub, Elevator e_sub, double speed) {
     //HC 01/18/22
     drive_subsystem = d_sub;
     intake_subsystem = i_sub;
