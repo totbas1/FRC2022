@@ -6,27 +6,21 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.simulation.JoystickSim;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.SPI;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.PS4Controller;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.subsystems.PIDshootingRotate;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DigitalOutput;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -62,8 +56,11 @@ public class RobotContainer {
   private final ElevatorMoveTopCommand m_ElevatorMoveTopCommand = new ElevatorMoveTopCommand(m_Elevator);
   private final BallOutCommand m_BallOutCommand = new BallOutCommand(m_Elevator);
   private final LimeLightAutoAdjustCommand m_LimeLightAutoAdjustCommand = new LimeLightAutoAdjustCommand(m_PIDshootingRotate);
-  private static boolean adjustRotateOn = true;
+  private final LimeLightAutoAdjustY m_LimeLightAutoAdjustY = new LimeLightAutoAdjustY(m_PIDshootingRotate);
+  private final ResetHoodCommand m_ResetHoodCommand = new ResetHoodCommand(m_PIDshootingRotate);
 
+
+  private static boolean adjustRotateOn = true;
   public static double startingAngle = 0.0;
   public static Encoder leftEncoder = new Encoder(0,1);
   public static Encoder rightEncoder = new Encoder(2, 3);
@@ -180,8 +177,11 @@ public class RobotContainer {
     new JoystickButton(m_driverController, XboxController.Button.kY.value).whileHeld(m_ElevatorMoveTopCommand);
     new JoystickButton(m_driverController, XboxController.Button.kA.value).whileHeld(m_BallOutCommand);
     new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value).whileHeld(m_LimeLightAutoAdjustCommand);
-  }
 
+    new JoystickButton(m_driverController2, XboxController.Button.kA.value).whileHeld(m_LimeLightAutoAdjustY);
+    new JoystickButton(m_driverController2, XboxController.Button.kY.value).whileHeld(m_ResetHoodCommand);
+
+  }
 
 
   public static XboxController getDriveJoystick(){

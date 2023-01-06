@@ -4,24 +4,17 @@
 
 package frc.robot.subsystems;
 
-import java.sql.Time;
-
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
+
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.RobotContainer;
-import frc.robot.Constants;
-import frc.robot.commands.*;
 
 public class RobotDrive extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */

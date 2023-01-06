@@ -16,27 +16,27 @@ import frc.robot.subsystems.PIDshootingRotate;
 import frc.robot.LimeLight;
 
 /** An example command that uses an example subsystem. */
-public class LimeLightAutoAdjustCommand extends CommandBase { 
+public class LimeLightAutoAdjustY extends CommandBase { 
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final PIDshootingRotate m_subsystem;
   boolean isFinished = false;
   boolean inErrorZone = false;
   int count;
 
-  public LimeLightAutoAdjustCommand(PIDshootingRotate subsystem) {
+  public LimeLightAutoAdjustY(PIDshootingRotate subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
 
   @Override
   public void initialize() {
-    m_subsystem.startNewXPID();
+    m_subsystem.startNewYPID();
   }
 
   @Override
   public void execute() {
-    inErrorZone = Math.abs(LimeLight.limelightTrackingX()) < m_subsystem.xtolerance;
-    m_subsystem.turnDegreesX();
+    inErrorZone = Math.abs(m_subsystem.yerror) < m_subsystem.ytolerance;
+    m_subsystem.turnDegreesY();
     if(inErrorZone){
       count++;
       if(count >= 3){
@@ -50,7 +50,7 @@ public class LimeLightAutoAdjustCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.switchXToJoystick();
+    m_subsystem.endYPID();
   }
 
   @Override
